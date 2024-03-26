@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ProgressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Authentication routes
+Route::post('/auth/register', [UserController::class, 'createUser']);
+Route::post('/auth/login', [UserController::class, 'loginUser']);
+
+// Progress routes 
+
+// Route::put('/progress/{id}', [ProgressController::class, 'updateProgress']); 
+// Route::delete('/progress/{id}', [ProgressController::class, 'deleteProgress']);
+// Route::get('/progress', [ProgressController::class, 'getUserProgress']); 
+// Route::get('/progress/{id}', [ProgressController::class, 'getProgress']);
+
+
+
+Route::middleware('auth:sanctum')->group(function ()  {
+    Route::post('/progress', [ProgressController::class, 'store']); 
 });
