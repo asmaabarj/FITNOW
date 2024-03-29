@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-        // ----------Register The User----------
+    // ----------Register The User----------
 
     public function createUser(Request $request)
     {
@@ -34,9 +34,9 @@ class UserController extends Controller
         ], 200);
     }
 
-    
+
     // ----------Login The User----------
-    
+
     public function loginUser(Request $request)
     {
         $request->validate([
@@ -52,11 +52,24 @@ class UserController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
-      
+
         return response()->json([
             'status' => true,
             'message' => 'User logged in successfully',
             'token' => $user->createToken("API TOKEN")->plainTextToken
         ], 200);
     }
+
+    // ----------Logout The User----------
+
+    public function logoutUser()
+    {
+
+        Auth::logout();
+        return response()->json([
+            'status' => true,
+            'message' => 'User logged out successfully'
+        ], 200);
+    }
+
 }

@@ -19,16 +19,15 @@ use App\Http\Controllers\Api\ProgressController;
 // Authentication routes
 Route::post('/auth/register', [UserController::class, 'createUser']);
 Route::post('/auth/login', [UserController::class, 'loginUser']);
-
-// Progress routes 
-
-// Route::put('/progress/{id}', [ProgressController::class, 'updateProgress']); 
-// Route::delete('/progress/{id}', [ProgressController::class, 'deleteProgress']);
-// Route::get('/progress', [ProgressController::class, 'getUserProgress']); 
-// Route::get('/progress/{id}', [ProgressController::class, 'getProgress']);
-
+Route::post('/auth/logout', [UserController::class, 'logoutUser']);
 
 
 Route::middleware('auth:sanctum')->group(function ()  {
     Route::post('/progress', [ProgressController::class, 'store']); 
+    Route::get('/showProgress', [ProgressController::class, 'show']); 
+    Route::delete('/progress/{id}', [ProgressController::class, 'destroy']);
+    Route::put('/progress/{id}', [ProgressController::class, 'update']);
+    Route::put('/progress/{id}/complete', [ProgressController::class, 'complete']);
+    Route::get('/progress/history', [ProgressController::class, 'history']);
+
 });
